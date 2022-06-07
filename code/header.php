@@ -9,7 +9,7 @@
     ?>
 
     <?php
-        if (isset($_SESSION['LoggedIN']) === true) {
+        if ($_SESSION['LoggedIN'] === true) {
             echo '<a id="NavbarLogout" href="logout.php">Logout</a>';
         } else {
             echo '<a id="NavbarLogin" href="login.php">Login</a>';
