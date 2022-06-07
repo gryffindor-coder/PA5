@@ -1,11 +1,11 @@
+<?php include('config.php'); ?>
+
 <?php
     if (!$_SESSION['LoggedIN']) {
         http_response_code(401);
         die("Unauthorized");
     }
 ?>
-
-<?php include('config.php'); ?>
 
 <!DOCTYPE html>
 <html lang="en">
