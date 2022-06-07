@@ -44,14 +44,14 @@
         }
 
         public function __destruct() {
-            $this->connection->close();
+//            $this->connection->close();
         }
     }
 
     class WheatlyDatabase{
         public static string $Wheatly_server = "localhost";
         public static string $Wheatly_username = "root";
-        public static string $Wheatly_password = "TheKey001Man#*!";
+        public static string $Wheatly_password = "";
         public static string $Wheatly_database = "golfdb";
 
         public Database $db;
@@ -136,6 +136,33 @@
                 $row = $result->fetch_assoc();
                 return password_verify($password, $row['hash']);
             }
+        }
+
+        public function getAllUserEmails() {
+            $emails = array();
+            $stmt = $this->db->prepareStatement("SELECT * FROM USER;");
+
+            if (!$stmt->execute())
+                die('Fatal error!');
+
+            $result = $stmt->get_result();
+            while (($row = $result->fetch_assoc()) != null)
+                $emails[] = $row['email'];
+
+            return $emails;
+        }
+
+        public function getAllAdmins() {
+            $admins = array();
+            $stmt = $this->db->prepareStatement("SELECT email FROM USER WHERE type = 'admin';");
+            if (!$stmt->execute())
+                die('Fatal error!');
+
+            $result = $stmt->get_result();
+            while (($row = $result->fetch_assoc()) != null)
+                $admins[] = $row['email'];
+
+            return $admins;
         }
     }
 ?>
