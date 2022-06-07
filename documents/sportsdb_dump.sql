@@ -1338,6 +1338,8 @@ CREATE TABLE `golf_player` (
   `handicap` int(11) NOT NULL,
   `team_id` int(11) NOT NULL,
   `person_id` int(11) NOT NULL,
+  `fname` varchar(255) NOT NULL,
+  `lname` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `team_id` (`team_id`),
   KEY `person_id` (`person_id`),
@@ -2663,4 +2665,4 @@ CREATE TABLE `weather_conditions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-07 22:38:52
+-- Dump completed on 2022-06-07 23:06:51
