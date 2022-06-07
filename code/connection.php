@@ -7,7 +7,8 @@
 
         public mysqli $connection;
 
-        public static function instance($server, $username, $password, $database) {
+        public static function instance($server, $username, $password, $database): ?Database
+        {
             static $instance = null;
             if($instance === null) $instance = new Database($server, $username, $password, $database);
             return $instance;
@@ -31,7 +32,8 @@
             else js_console_log("db connected!");
         }
 
-        public function getConnection(){
+        public function getConnection(): mysqli
+        {
             return $this->connection;
         }
 
@@ -56,11 +58,13 @@
 
         public Database $db;
 
-        public static function instance() {
+        public static function instance(): ?Database
+        {
             return Database::instance(WheatlyDatabase::$Wheatly_server, WheatlyDatabase::$Wheatly_username, WheatlyDatabase::$Wheatly_password, WheatlyDatabase::$Wheatly_database);
         }
 
-        public static function conn(){
+        public static function conn(): ?WheatlyDatabase
+        {
             static $conn = null;
             if($conn === null) $conn = new WheatlyDatabase();
             return $conn;
@@ -75,7 +79,8 @@
             $this->db->__destruct();
         }
 
-        public function insertUser($fname, $lname, $uname, $email, $password) {
+        public function insertUser($fname, $lname, $uname, $email, $password): bool
+        {
             $stmt = $this->db->prepareStatement("SELECT email FROM USER WHERE email = ?");
             $stmt->bind_param("s", $email);
             $stmt->execute();
@@ -84,8 +89,8 @@
 
             $hash = password_hash($password, PASSWORD_ARGON2ID);
 
-            $stmt = $this->db->prepareStatement("INSERT INTO USER (email, fname, lname, hash, type) VALUES (?, ?, ?, ?, 'default');");
-            $stmt->bind_param("ssss", $email, $fname, $lname, $hash);
+            $stmt = $this->db->prepareStatement("INSERT INTO USER (email, fname, lname, hash, type, uname) VALUES (?, ?, ?, ?, 'default', ?);");
+            $stmt->bind_param("ssss", $email, $fname, $lname, $hash, $uname);
             return $stmt->execute();
         }
 
@@ -97,13 +102,15 @@
         }
 
         public function getResultRow($result) {
-            if($result->num_rows>0){
+            if($result->num_rows > 0){
                 $row = $result->fetch_assoc();
                 return $row;
             }
+            return null;
         }
 
-        public function getResultRowArr($result) {
+        public function getResultRowArr($result): array
+        {
             $resArr = array();
             for ($i=0; $i < $result->num_rows; $i++) {
                 $row = $result->fetch_assoc();
@@ -117,9 +124,11 @@
                 $row = $result->fetch_assoc();
                 return $row[$value];
             }
+            return null;
         }
 
-        public function getResultValueArr($result, $value) {
+        public function getResultValueArr($result, $value): array
+        {
             $resArr = array();
             for ($i=0; $i < $result->num_rows; $i++) { 
                 $row = $result->fetch_assoc();
@@ -128,7 +137,8 @@
             return $resArr;
         }
 
-        public function userLogin($email, $password){
+        public function userLogin($email, $password): bool
+        {
             $result = $this->getUserData($email);
             if ($result->num_rows != 1) {
                 return false;
