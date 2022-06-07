@@ -48,29 +48,29 @@
         }
     }
 
-    class WheatlyDatabase{
-        public static string $Wheatly_server = "localhost";
-        public static string $Wheatly_username = "PA5";
-        public static string $Wheatly_password = "admin";
-        public static string $Wheatly_database = "golfdb";
+    class sportsDatabase{
+        public static string $sportsdb_server = "localhost";
+        public static string $sportsdb_username = "PA5";
+        public static string $sportsdb_password = "admin";
+        public static string $sportsdb_database = "sportsdb";
 
         public Database $db;
 
         public static function instance(): ?Database
         {
-            return Database::instance(WheatlyDatabase::$Wheatly_server, WheatlyDatabase::$Wheatly_username, WheatlyDatabase::$Wheatly_password, WheatlyDatabase::$Wheatly_database);
+            return Database::instance(sportsDatabase::$sportsdb_server, sportsDatabase::$sportsdb_username, sportsDatabase::$sportsdb_password, sportsDatabase::$sportsdb_database);
         }
 
-        public static function conn(): ?WheatlyDatabase
+        public static function conn(): ?sportsDatabase
         {
             static $conn = null;
-            if($conn === null) $conn = new WheatlyDatabase();
+            if($conn === null) $conn = new sportsDatabase();
             return $conn;
         }
 
         public function __construct() {
-            //$this->db = WheatlyDatabase::instance();
-            $this->db = new Database(WheatlyDatabase::$Wheatly_server, WheatlyDatabase::$Wheatly_username, WheatlyDatabase::$Wheatly_password, WheatlyDatabase::$Wheatly_database);
+            //$this->db = sportsDatabase::instance();
+            $this->db = new Database(sportsDatabase::$sportsdb_server, sportsDatabase::$sportsdb_username, sportsDatabase::$sportsdb_password, sportsDatabase::$sportsdb_database);
         }
 
         public function __destruct() {
