@@ -44,14 +44,14 @@
         }
 
         public function __destruct() {
-            //$this->connection->close();
+            $this->connection->close();
         }
     }
 
     class WheatlyDatabase{
         public static string $Wheatly_server = "localhost";
         public static string $Wheatly_username = "root";
-        public static string $Wheatly_password = "somepassword";
+        public static string $Wheatly_password = "TheKey001Man#*!";
         public static string $Wheatly_database = "golfdb";
 
         public Database $db;
@@ -84,7 +84,7 @@
 
             $hash = password_hash($password, PASSWORD_ARGON2ID);
 
-            $stmt = $this->db->prepareStatement("INSERT INTO USER (email, fname, lname, hash) VALUES (?, ?, ?, ?);");
+            $stmt = $this->db->prepareStatement("INSERT INTO USER (email, fname, lname, hash, type) VALUES (?, ?, ?, ?, 'default');");
             $stmt->bind_param("ssss", $email, $fname, $lname, $hash);
             return $stmt->execute();
         }
