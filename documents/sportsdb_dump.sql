@@ -1294,10 +1294,10 @@ CREATE TABLE `golf_event_round_strokes` (
   `player_id` int(11) NOT NULL,
   `event_id` int(11) NOT NULL,
   `stroke_number` int(11) NOT NULL,
-  `round_number` int(11) NOT NULL,
+  `hole_number` int(11) NOT NULL,
   `club_type` varchar(20) NOT NULL,
   `time_taken` time NOT NULL,
-  PRIMARY KEY (`player_id`,`event_id`,`stroke_number`,`round_number`),
+  PRIMARY KEY (`player_id`,`event_id`,`stroke_number`,`hole_number`),
   KEY `event_id` (`event_id`),
   CONSTRAINT `golf_event_round_strokes_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `golf_player` (`id`),
   CONSTRAINT `golf_event_round_strokes_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `golf_event` (`id`)
@@ -1315,9 +1315,10 @@ CREATE TABLE `golf_event_rounds` (
   `player_id` int(11) NOT NULL,
   `event_id` int(11) NOT NULL,
   `hole_id` int(11) NOT NULL,
-  `round_number` int(11) NOT NULL,
-  `strokes` int(11) NOT NULL,
-  PRIMARY KEY (`player_id`,`event_id`),
+  `adjustment` int(11) NOT NULL,
+  `hole_number` int(11) NOT NULL,
+  PRIMARY KEY (`hole_number`,`player_id`,`event_id`),
+  UNIQUE KEY `player_id_2` (`player_id`,`event_id`),
   KEY `event_id` (`event_id`),
   KEY `hole_id` (`hole_id`),
   CONSTRAINT `golf_event_rounds_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `golf_player` (`id`),
@@ -2665,4 +2666,4 @@ CREATE TABLE `weather_conditions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-07 23:06:51
+-- Dump completed on 2022-06-08  0:52:16
