@@ -15,9 +15,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE DATABASE `sportsdb`;
-USE `sportsdb`;
-
 --
 -- Table structure for table `USER`
 --
@@ -941,25 +938,6 @@ CREATE TABLE `core_stats` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `course_holes`
---
-
-DROP TABLE IF EXISTS `course_holes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `course_holes` (
-  `hole_id` int(11) NOT NULL AUTO_INCREMENT,
-  `hole_type` varchar(13) NOT NULL CHECK (`hole_type` = 'Open Design' or `hole_type` = 'Lay-up Design' or `hole_type` = 'Detour Design' or `hole_type` = 'Heroic Design' or `hole_type` = 'Penal Design'),
-  `hole_number` int(11) NOT NULL,
-  `par` int(11) NOT NULL CHECK (`par` >= 3 and `par` <= 6),
-  `course_id` int(11) NOT NULL,
-  PRIMARY KEY (`hole_id`),
-  KEY `course_id` (`course_id`),
-  CONSTRAINT `course_holes_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `golf_course` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `db_info`
 --
 
@@ -1156,45 +1134,6 @@ CREATE TABLE `documents_media` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `event_documents`
---
-
-DROP TABLE IF EXISTS `event_documents`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `event_documents` (
-  `event_id` int(11) NOT NULL,
-  `document_id` varchar(75) NOT NULL,
-  `document_path` varchar(255) NOT NULL,
-  PRIMARY KEY (`event_id`,`document_id`),
-  KEY `document_id` (`document_id`),
-  CONSTRAINT `event_documents_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `golf_event` (`id`),
-  CONSTRAINT `event_documents_ibfk_2` FOREIGN KEY (`document_id`) REFERENCES `documents` (`doc_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `event_round_strokes`
---
-
-DROP TABLE IF EXISTS `event_round_strokes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `event_round_strokes` (
-  `player_id` int(11) NOT NULL,
-  `event_id` int(11) NOT NULL,
-  `stroke_number` int(11) NOT NULL,
-  `round_number` int(11) NOT NULL,
-  `club_type` varchar(20) NOT NULL,
-  `time_taken` time NOT NULL,
-  PRIMARY KEY (`player_id`,`event_id`,`stroke_number`,`round_number`),
-  KEY `event_id` (`event_id`),
-  CONSTRAINT `event_round_strokes_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `golf_player` (`id`),
-  CONSTRAINT `event_round_strokes_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `golf_event` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `events`
 --
 
@@ -1270,6 +1209,25 @@ CREATE TABLE `golf_course` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `golf_course_holes`
+--
+
+DROP TABLE IF EXISTS `golf_course_holes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `golf_course_holes` (
+  `hole_id` int(11) NOT NULL AUTO_INCREMENT,
+  `hole_type` varchar(13) NOT NULL CHECK (`hole_type` = 'Open Design' or `hole_type` = 'Lay-up Design' or `hole_type` = 'Detour Design' or `hole_type` = 'Heroic Design' or `hole_type` = 'Penal Design'),
+  `hole_number` int(11) NOT NULL,
+  `par` int(11) NOT NULL CHECK (`par` >= 3 and `par` <= 6),
+  `course_id` int(11) NOT NULL,
+  PRIMARY KEY (`hole_id`),
+  KEY `course_id` (`course_id`),
+  CONSTRAINT `golf_course_holes_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `golf_course` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `golf_event`
 --
 
@@ -1284,6 +1242,24 @@ CREATE TABLE `golf_event` (
   PRIMARY KEY (`id`),
   KEY `course_id` (`course_id`),
   CONSTRAINT `golf_event_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `golf_course` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `golf_event_documents`
+--
+
+DROP TABLE IF EXISTS `golf_event_documents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `golf_event_documents` (
+  `event_id` int(11) NOT NULL,
+  `document_id` varchar(75) NOT NULL,
+  `document_path` varchar(255) NOT NULL,
+  PRIMARY KEY (`event_id`,`document_id`),
+  KEY `document_id` (`document_id`),
+  CONSTRAINT `golf_event_documents_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `golf_event` (`id`),
+  CONSTRAINT `golf_event_documents_ibfk_2` FOREIGN KEY (`document_id`) REFERENCES `documents` (`doc_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1308,6 +1284,27 @@ CREATE TABLE `golf_event_players` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `golf_event_round_strokes`
+--
+
+DROP TABLE IF EXISTS `golf_event_round_strokes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `golf_event_round_strokes` (
+  `player_id` int(11) NOT NULL,
+  `event_id` int(11) NOT NULL,
+  `stroke_number` int(11) NOT NULL,
+  `round_number` int(11) NOT NULL,
+  `club_type` varchar(20) NOT NULL,
+  `time_taken` time NOT NULL,
+  PRIMARY KEY (`player_id`,`event_id`,`stroke_number`,`round_number`),
+  KEY `event_id` (`event_id`),
+  CONSTRAINT `golf_event_round_strokes_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `golf_player` (`id`),
+  CONSTRAINT `golf_event_round_strokes_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `golf_event` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `golf_event_rounds`
 --
 
@@ -1325,7 +1322,7 @@ CREATE TABLE `golf_event_rounds` (
   KEY `hole_id` (`hole_id`),
   CONSTRAINT `golf_event_rounds_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `golf_player` (`id`),
   CONSTRAINT `golf_event_rounds_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `golf_event` (`id`),
-  CONSTRAINT `golf_event_rounds_ibfk_3` FOREIGN KEY (`hole_id`) REFERENCES `course_holes` (`hole_id`)
+  CONSTRAINT `golf_event_rounds_ibfk_3` FOREIGN KEY (`hole_id`) REFERENCES `golf_course_holes` (`hole_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1350,6 +1347,24 @@ CREATE TABLE `golf_player` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `golf_player_documents`
+--
+
+DROP TABLE IF EXISTS `golf_player_documents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `golf_player_documents` (
+  `player_id` int(11) NOT NULL,
+  `document_id` varchar(75) NOT NULL,
+  `document_path` varchar(255) NOT NULL,
+  PRIMARY KEY (`player_id`,`document_id`),
+  KEY `document_id` (`document_id`),
+  CONSTRAINT `golf_player_documents_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `golf_player` (`id`),
+  CONSTRAINT `golf_player_documents_ibfk_2` FOREIGN KEY (`document_id`) REFERENCES `documents` (`doc_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `golf_team`
 --
 
@@ -1361,6 +1376,24 @@ CREATE TABLE `golf_team` (
   `team_name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `golf_team_ibfk_1` FOREIGN KEY (`id`) REFERENCES `teams` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `golf_team_documents`
+--
+
+DROP TABLE IF EXISTS `golf_team_documents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `golf_team_documents` (
+  `team_id` int(11) NOT NULL,
+  `document_id` varchar(75) NOT NULL,
+  `document_path` varchar(255) NOT NULL,
+  PRIMARY KEY (`team_id`,`document_id`),
+  KEY `document_id` (`document_id`),
+  CONSTRAINT `golf_team_documents_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `golf_team` (`id`),
+  CONSTRAINT `golf_team_documents_ibfk_2` FOREIGN KEY (`document_id`) REFERENCES `documents` (`doc_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1964,24 +1997,6 @@ CREATE TABLE `persons_media` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `player_documents`
---
-
-DROP TABLE IF EXISTS `player_documents`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `player_documents` (
-  `player_id` int(11) NOT NULL,
-  `document_id` varchar(75) NOT NULL,
-  `document_path` varchar(255) NOT NULL,
-  PRIMARY KEY (`player_id`,`document_id`),
-  KEY `document_id` (`document_id`),
-  CONSTRAINT `player_documents_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `golf_player` (`id`),
-  CONSTRAINT `player_documents_ibfk_2` FOREIGN KEY (`document_id`) REFERENCES `documents` (`doc_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `positions`
 --
 
@@ -2303,24 +2318,6 @@ CREATE TABLE `team_american_football_stats` (
   `turnover_ratio` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `team_documents`
---
-
-DROP TABLE IF EXISTS `team_documents`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `team_documents` (
-  `team_id` int(11) NOT NULL,
-  `document_id` varchar(75) NOT NULL,
-  `document_path` varchar(255) NOT NULL,
-  PRIMARY KEY (`team_id`,`document_id`),
-  KEY `document_id` (`document_id`),
-  CONSTRAINT `team_documents_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `golf_team` (`id`),
-  CONSTRAINT `team_documents_ibfk_2` FOREIGN KEY (`document_id`) REFERENCES `documents` (`doc_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2666,4 +2663,4 @@ CREATE TABLE `weather_conditions` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-07 22:05:17
+-- Dump completed on 2022-06-07 22:38:52
