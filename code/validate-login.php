@@ -2,7 +2,6 @@
 
 <?php include 'config.php';?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +14,7 @@
     <title>Validate</title>
 </head>
 <body>
+
 <?php
     function isValidEmail($email){
         //echo $email;
@@ -39,7 +39,7 @@
         //
         login($email, $password);
         include 'footer.php';
-    }else{
+    } else {
         //echo "Invalid";
         //include 'signup.php';
         header("Location: login.php");
@@ -49,10 +49,10 @@
     function login($email, $password){
         global $conn;
         $lI = $conn->userLogin($email, $password);
-        if($lI === true){
+        if($lI === true) {
             init_login();
             loginComplete();
-        }else{
+        } else {
             loginFail($lI);
             $_SESSION['InvalidLogin'] = true;
             //header("Location: login.php");

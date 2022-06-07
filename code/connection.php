@@ -1,13 +1,13 @@
 <?php
-    class Database{
-        public $server = "";
-        public $username = "";
-        public $password = "";
-        public $database = "";
+    class Database {
+        public string $server = "";
+        public string $username = "";
+        public string $password = "";
+        public string $database = "";
 
-        public $connection;
+        public mysqli $connection;
 
-        public static function instance($server, $username, $password, $database){
+        public static function instance($server, $username, $password, $database) {
             static $instance = null;
             if($instance === null) $instance = new Database($server, $username, $password, $database);
             return $instance;
@@ -22,7 +22,7 @@
             $this->connect();
         }
 
-        public function connect(){
+        public function connect() {
             //echo $this->server,$this->username,$this->password, $this->database;
             $this->connection = new mysqli($this->server,$this->username,$this->password, $this->database);
             //$this->connection = mysqli_connect($this->server,$this->username,$this->password, $this->database);
@@ -39,20 +39,24 @@
             return $this->connection->query($sql);
         }
 
+        public function prepareStatement($sql) {
+            return $this->connection->prepare($sql);
+        }
+
         public function __destruct() {
             //$this->connection->close();
         }
     }
 
     class WheatlyDatabase{
-        public static $Wheatly_server = "localhost";
-        public static $Wheatly_username = "root";
-        public static $Wheatly_password = "admin";
-        public static $Wheatly_database = "COS221_PA5";
+        public static string $Wheatly_server = "localhost";
+        public static string $Wheatly_username = "root";
+        public static string $Wheatly_password = "somepassword";
+        public static string $Wheatly_database = "golfdb";
 
-        public $db;
+        public Database $db;
 
-        public static function instance(){
+        public static function instance() {
             return Database::instance(WheatlyDatabase::$Wheatly_server, WheatlyDatabase::$Wheatly_username, WheatlyDatabase::$Wheatly_password, WheatlyDatabase::$Wheatly_database);
         }
 
@@ -71,30 +75,35 @@
             $this->db->__destruct();
         }
 
-        public function insertUser($fname, $lname, $uname, $email, $password){
-            $skey = $email . random_num(5);
-            $table = $this->db->database.'.users';
-            $sql = "INSERT INTO $table (Email, UserName, FirstName, LastName, Password, APIKey, Date) VALUES ('$email', '$uname', '$fname', '$lname', '$password', HEX('$skey'), current_timestamp()) ";
+        public function insertUser($fname, $lname, $uname, $email, $password) {
+            $stmt = $this->db->prepareStatement("SELECT email FROM USER WHERE email = ?");
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            if ($stmt->get_result()->num_rows > 0)
+                return false;
 
-            $result = $this->db->query($sql);
+            $hash = password_hash($password, PASSWORD_ARGON2ID);
 
-            return $result;
+            $stmt = $this->db->prepareStatement("INSERT INTO USER (email, fname, lname, hash) VALUES (?, ?, ?, ?);");
+            $stmt->bind_param("ssss", $email, $fname, $lname, $hash);
+            return $stmt->execute();
         }
 
-        public function getUserData($email){
-            $table = $this->db->database.'.users';
-            $sql = "SELECT * FROM $table WHERE 1 AND Email = '$email' LIMIT 1;";
-            return $this->db->query($sql);
+        public function getUserData($email) {
+            $stmt = $this->db->prepareStatement("SELECT * FROM USER WHERE 1 AND email = ? LIMIT 1;");
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            return $stmt->get_result();
         }
 
-        public function getResultRow($result){
+        public function getResultRow($result) {
             if($result->num_rows>0){
                 $row = $result->fetch_assoc();
                 return $row;
             }
         }
 
-        public function getResultRowArr($result){
+        public function getResultRowArr($result) {
             $resArr = array();
             for ($i=0; $i < $result->num_rows; $i++) {
                 $row = $result->fetch_assoc();
@@ -103,14 +112,14 @@
             return $resArr;
         }
 
-        public function getResultValue($result, $value){
+        public function getResultValue($result, $value) {
             if($result->num_rows>0){
                 $row = $result->fetch_assoc();
                 return $row[$value];
             }
         }
 
-        public function getResultValueArr($result, $value){
+        public function getResultValueArr($result, $value) {
             $resArr = array();
             for ($i=0; $i < $result->num_rows; $i++) { 
                 $row = $result->fetch_assoc();
@@ -121,21 +130,12 @@
 
         public function userLogin($email, $password){
             $result = $this->getUserData($email);
-            if($result === false) js_console_log($this->db->connection->error);
-            if($result && $result->num_rows > 0){
+            if ($result->num_rows != 1) {
+                return false;
+            } else {
                 $row = $result->fetch_assoc();
-                if($row["Password"] === $password){
-                    $_SESSION['Email'] = $email;
-                    $_SESSION['UserName'] = $row['UserName'];
-                    $_SESSION['LogedIN'] = true;
-
-                    setcookie("Email",$email);
-                    setcookie("UserName",$row['UserName']);
-
-                    return true;
-                }
+                return password_verify($password, $row['hash']);
             }
-            return false;
         }
     }
 ?>

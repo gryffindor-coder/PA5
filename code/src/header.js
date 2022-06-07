@@ -3,7 +3,6 @@ const Login_Page = "Login_Page";
 const Signup_Page = "Signup_Page";
 const Logout_Page = "Logout_Page";
 
-
 function initNavbar(page){
     //links
     var link_NavbarIndex = document.getElementById("NavbarIndex");

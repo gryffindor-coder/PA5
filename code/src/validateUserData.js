@@ -52,11 +52,12 @@ function logIn(){
     var emb = isValidEmail(document.getElementById("email").value);
     var pwb = isValidPassword(document.getElementById("password").value);
 
-    if(!emb){
+    if(!emb) {
         allValid = false;
         document.getElementById("error").innerHTML = "Invalid Fields";
         //document.getElementById("error").innerHTML += "Invalid Email. ";
     }
+
     if(!pwb){
         allValid = false;
         document.getElementById("error").innerHTML = "Invalid Fields";

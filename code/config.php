@@ -4,9 +4,7 @@
 
     include 'functions.php';
     include 'connection.php';
-
-    // $conn = WheatlyDatabase::conn();
-    $conn = null;
+    $conn = WheatlyDatabase::conn();
 
     $user_email = "";
     $key = "";
