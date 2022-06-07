@@ -50,8 +50,8 @@
 
     class WheatlyDatabase{
         public static string $Wheatly_server = "localhost";
-        public static string $Wheatly_username = "root";
-        public static string $Wheatly_password = "TheKey001Man#*!";
+        public static string $Wheatly_username = "PA5";
+        public static string $Wheatly_password = "admin";
         public static string $Wheatly_database = "golfdb";
 
         public Database $db;
