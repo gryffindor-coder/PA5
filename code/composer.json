@@ -2,5 +2,7 @@
     "name": "enthusiastic_students/pa5",
     "description": "Practical Assignment 5",
     "type": "project",
-    "require": {}
+    "require": {
+        "ext-mysqli": "*"
+    }
 }
