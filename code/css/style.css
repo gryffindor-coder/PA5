@@ -1,0 +1,130 @@
+/* Damian Jordaan u20473509 PA4 */
+
+body{
+  background-color: var(--bg-primary-color);
+  color: var(--default-color);
+
+  margin-top: 0px; 
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+
+  padding: 0px;
+}
+
+#SubBody {
+  padding-top: 15px;
+  margin-bottom: 30px;
+  margin-left: 15px;
+  margin-right: 30px;
+}
+
+.CLSubBody {
+  padding-top: 15px;
+  margin-bottom: 30px;
+  margin-left: 15px;
+  margin-right: 30px;
+}
+
+.DataObjectPageLeft {
+  padding: 15px;
+  margin: 10px;
+  border-radius: 20px;
+  background-image: linear-gradient(to right, var(--secondary-color), var(--d-color), var(--bg-primary-color));
+
+  text-align: left;
+  font-size: 20px;
+}
+
+.DataObjectPageRight {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 20px;
+  background-image: linear-gradient(to left, var(--secondary-color), var(--d-color), var(--bg-primary-color));
+  
+  text-align: right;
+  font-size: 20px;
+}
+
+.TableOverlap {
+  position: relative;
+  bottom: -225px;
+  z-index: -1;
+}
+
+.GameTitle {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.GameData {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.loadingItem {
+  border: 200px solid var(--d-color);
+  border-top: 200px solid var(--e-color);
+  border-bottom: 200px solid var(--e-color);
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  animation: spin 3s linear infinite;
+
+  margin-left: 33%;
+}
+
+.loadingItemSmall {
+  border: 50px solid var(--d-color);
+  border-top: 50px solid var(--e-color);
+  border-bottom: 50px solid var(--e-color);
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  animation: spin 3s linear infinite;
+
+  margin-left: 33%;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(180deg); }
+  40% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.FilterArea {
+  float: right;
+  text-align: center;
+  margin-right: 30px;
+
+  color: var(--font-primary-color);
+}
+
+.FilterArea input {
+  text-decoration: none;
+  text-align: left;
+  float: right;
+  padding: 5px 10px;
+  font-size: 22px;
+
+  color: var(--font-primary-color);
+}
+
+.FilterArea button {
+  text-decoration: none;
+  text-align: center;
+  float: right;
+  padding: 5px 5px;
+  font-size: 22px;
+
+  color: var(--font-primary-color);
+}

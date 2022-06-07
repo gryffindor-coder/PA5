@@ -1,0 +1,108 @@
+/* Damian Jordaan u20473509 PA4 */
+
+:root {
+    --highlight-color: #FFA500;
+    --primary-color: #0c0f25;
+    --secondary-color: #440001;
+
+    --hover-color: grey;
+    --hover-font-primary-color: black;
+    --hover-font-secondary-color: #FFA500;
+
+    --a-color: #00ffff;
+    --b-color: #440041;
+    --c-color: #272b49;
+
+    --d-color: blue;
+    --e-color: #7e0707;
+
+    --f-color: #333;
+
+    --bg-primary-color: #333;
+    --bg-secondary-color: #1f1f1f;
+
+    --font-color: white;
+    --font-primary-color: white;
+    --font-secondary-color: black;
+
+    --default-color: white;
+}
+
+[data-theme="dark"] {
+    --highlight-color: #FFA500;
+    --primary-color: #0c0f25;
+    --secondary-color: #440001;
+
+    --hover-color: grey;
+    --hover-font-primary-color: black;
+    --hover-font-secondary-color: #FFA500;
+
+    --a-color: #00ffff;
+    --b-color: #440041;
+    --c-color: #272b49;
+
+    --d-color: blue;
+    --e-color: #7e0707;
+
+    --f-color: #333;
+
+    --bg-primary-color: #333;
+    --bg-secondary-color: #1f1f1f;
+
+    --font-color: white;
+    --font-primary-color: white;
+    --font-secondary-color: black;
+
+    --default-color: white;
+}
+
+[data-theme="light"] {
+    --highlight-color: #ff3c00;
+    --primary-color: #70d0c6;
+    --secondary-color: #ff7552;
+
+    --hover-color: grey;
+    --hover-font-primary-color: black;
+    --hover-font-secondary-color: #6b2700;
+
+    --a-color: #29a1a1;
+    --b-color: #59dba0;
+    --c-color: #3b4872;
+
+    --d-color: rgb(149, 215, 218);
+    --e-color: #7e0707;
+
+    --f-color: #dbcdcd;
+
+    --bg-primary-color: #f8f8f8;
+    --bg-secondary-color: #e4d943;
+
+    --font-color: black;
+    --font-primary-color: black;
+    --font-secondary-color: white;
+
+    --default-color: black;
+}
+
+button{
+    color: var(--font-primary-color);
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+button:hover {
+    color: var(--font-secondary-color);
+    background-color: var(--hover-color);
+    border-color: var(--highlight-color);
+}
+
+input{
+    color: var(--font-primary-color);
+    background-color: var(--primary-color);
+    border-color: var(--secondary-color);
+}
+
+input:hover{
+    color: var(--font-primary-color);
+    border-color: var(--highlight-color);
+}

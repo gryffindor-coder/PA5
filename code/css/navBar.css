@@ -1,0 +1,58 @@
+/* Damian Jordaan u20473509 PA4 */
+
+.mainNavbar {
+    background-color: var(--primary-color);
+    overflow: hidden;
+    width: 100%;
+    position: fixed;
+}
+
+.mainNavbar a {
+    text-decoration: none;
+    text-align: center;
+    float: left;
+    padding: 0px 10px;
+    font-size: 35px;
+    color: var(--font-primary-color);
+}
+
+.mainNavbar a:hover {
+    background-color: var(--hover-color);
+    color: var(--font-secondary-color);
+}
+
+.mainNavbar a.current {
+    background-color: var(--a-color);
+    color: var(--font-secondary-color);
+}
+
+.mainNavbar a.current:hover {
+    color: var(--hover-font-secondary-color);
+}
+
+.mainNavbar a.mainPage {
+    background-color: var(--highlight-color);
+    color: var(--font-primary-color);
+    font-family: 'Copperplate Gothic Light';
+}
+
+.mainNavbar a.mainPage:hover {
+    background-color: var(--e-color);
+    color: var(--font-primary-color);
+}
+
+.mainNavbar input {
+    text-decoration: none;
+    text-align: left;
+    float: right;
+    padding: 5px 10px;
+    font-size: 22px;
+}
+
+.mainNavbar button {
+    text-decoration: none;
+    text-align: center;
+    float: right;
+    padding: 5px 5px;
+    font-size: 19px;
+}
