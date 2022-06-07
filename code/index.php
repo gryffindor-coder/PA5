@@ -18,7 +18,7 @@
 	<br><br><br>
 	<div id="SubBody">
 		<!-- Data Here -->
-		Stuff here
+		Stuff here 2
 	</div>
 	<script type="text/javascript" src="src/index.js"></script>
 	<?php include 'footer.php';?>
