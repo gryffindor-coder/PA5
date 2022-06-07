@@ -8,7 +8,7 @@
 
     include 'functions.php';
     include 'connection.php';
-    $conn = WheatlyDatabase::conn();
+    $conn = sportsDatabase::conn();
 
     $user_email = "";
     $key = "";
