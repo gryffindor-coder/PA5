@@ -8,9 +8,8 @@
             echo '<a id="NavbarManageUsers" href="manage-users.php">Manage Users</a>';
     ?>
 
-
     <?php
-        if ($_SESSION['LoggedIN'] === true) {
+        if (isset($_SESSION['LoggedIN']) === true) {
             echo '<a id="NavbarLogout" href="logout.php">Logout</a>';
         } else {
             echo '<a id="NavbarLogin" href="login.php">Login</a>';
@@ -20,8 +19,8 @@
 
     <!-- <a id="NavbarUser" href="user.php">User</a> -->
 
-    <button id="NavbarMoreOptions" onclick="overrideRAWGKey()">:</button>
-    <button id="NavbarHelp" onclick="helpPrompt()">?</button>
+<!--    <button id="NavbarMoreOptions" onclick="overrideRAWGKey()">:</button>-->
+<!--    <button id="NavbarHelp" onclick="helpPrompt()">?</button>-->
 </nav>
 
 <?php
