@@ -3,6 +3,7 @@
 <nav class="mainNavbar">
     <a id="NavbarIndex" class="mainPage" href="index.php">Home</a>
 
+    <a id="NavbarManageUsers" href="manage-users.php">Manage Users</a>
     <a id="NavbarSignup" href="signup.php">Signup</a>
     <a id="NavbarLogin" href="login.php">Login</a>
     <a id="NavbarLogout" href="logout.php">Logout</a>
