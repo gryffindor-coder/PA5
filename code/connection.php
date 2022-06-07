@@ -24,9 +24,7 @@
         }
 
         public function connect() {
-            //echo $this->server,$this->username,$this->password, $this->database;
             $this->connection = new mysqli($this->server,$this->username,$this->password, $this->database);
-            //$this->connection = mysqli_connect($this->server,$this->username,$this->password, $this->database);
 
             if($this->connection->connect_error) die("Connection failure: ".$this->connection->connect_error);
             else js_console_log("db connected!");
@@ -53,7 +51,7 @@
     class WheatlyDatabase{
         public static string $Wheatly_server = "localhost";
         public static string $Wheatly_username = "root";
-        public static string $Wheatly_password = "";
+        public static string $Wheatly_password = "TheKey001Man#*!";
         public static string $Wheatly_database = "golfdb";
 
         public Database $db;
@@ -90,7 +88,7 @@
             $hash = password_hash($password, PASSWORD_ARGON2ID);
 
             $stmt = $this->db->prepareStatement("INSERT INTO USER (email, fname, lname, hash, type, uname) VALUES (?, ?, ?, ?, 'default', ?);");
-            $stmt->bind_param("ssss", $email, $fname, $lname, $hash, $uname);
+            $stmt->bind_param("sssss", $email, $fname, $lname, $hash, $uname);
             return $stmt->execute();
         }
 
@@ -141,11 +139,21 @@
         {
             $result = $this->getUserData($email);
             if ($result->num_rows != 1) {
+                $_SESSION['LoggedIN'] = false;
                 return false;
             } else {
                 $row = $result->fetch_assoc();
-                return password_verify($password, $row['hash']);
+                if (password_verify($password, $row['hash'])) {
+                    $_SESSION['LoggedIN'] = true;
+                    $_SESSION['Email'] = $email;
+                    $_SESSION['UserName'] = $row['uname'];
+                    $_SESSION['Type'] = $row['type'];
+                } else {
+                    $_SESSION['LoggedIN'] = false;
+                }
             }
+
+            return $_SESSION['LoggedIN'];
         }
 
         public function getAllUserEmails() {

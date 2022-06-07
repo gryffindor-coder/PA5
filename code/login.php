@@ -21,7 +21,7 @@
     <?php include 'header.php';?>
 	<br><br><br>
 	<div id="SubBody">
-        <form onsubmit="" style="align-self: left;" action="validate-login.php">
+        <form onsubmit="" style="align-self: left;" action="validate-login.php" method="post">
             <div class="DataObjectPageLeft row form">
                 <h2>Login</h2>
             </div>

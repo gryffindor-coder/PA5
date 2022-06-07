@@ -3,10 +3,20 @@
 <nav class="mainNavbar">
     <a id="NavbarIndex" class="mainPage" href="index.php">Home</a>
 
-    <a id="NavbarManageUsers" href="manage-users.php">Manage Users</a>
-    <a id="NavbarSignup" href="signup.php">Signup</a>
-    <a id="NavbarLogin" href="login.php">Login</a>
-    <a id="NavbarLogout" href="logout.php">Logout</a>
+    <?php
+        if ($_SESSION['LoggedIN'] === true && $_SESSION['Type'] === "admin")
+            echo '<a id="NavbarManageUsers" href="manage-users.php">Manage Users</a>';
+    ?>
+
+
+    <?php
+        if ($_SESSION['LoggedIN'] === true) {
+            echo '<a id="NavbarLogout" href="logout.php">Logout</a>';
+        } else {
+            echo '<a id="NavbarLogin" href="login.php">Login</a>';
+            echo '<a id="NavbarSignup" href="signup.php">Signup</a>';
+        }
+    ?>
 
     <!-- <a id="NavbarUser" href="user.php">User</a> -->
 

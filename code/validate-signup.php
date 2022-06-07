@@ -34,11 +34,11 @@
         return (preg_match($validInputExp, $input) === 1);
     }
 
-    $fname = $_GET["fname"];
-    $lname = $_GET["lname"];
-    $uname = $_GET["uname"];
-    $email = $_GET["email"];
-    $password = $_GET["password"];
+    $fname = $_POST["fname"];
+    $lname = $_POST["lname"];
+    $uname = $_POST["uname"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
 
     $fnb = isValidInput($fname);
     $lnb = isValidInput($lname);

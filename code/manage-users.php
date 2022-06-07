@@ -1,3 +1,10 @@
+<?php
+    if (!$_SESSION['LoggedIN']) {
+        http_response_code(401);
+        die("Unauthorized");
+    }
+?>
+
 <?php include('config.php'); ?>
 
 <!DOCTYPE html>
@@ -55,6 +62,9 @@
             </div>
         </div>
     </form>
+    <script>
+        initNavbar(Manage_Users_Page)
+    </script>
 </div>
 <?php include 'footer.php';?>
 </body>

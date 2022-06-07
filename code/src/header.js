@@ -2,12 +2,14 @@ const Index_Page = "Index_Page";
 const Login_Page = "Login_Page";
 const Signup_Page = "Signup_Page";
 const Logout_Page = "Logout_Page";
+const Manage_Users_Page = "Manage_Users_Page";
 
 function initNavbar(page){
     //links
     var link_NavbarIndex = document.getElementById("NavbarIndex");
     var link_NavbarLogin = document.getElementById("NavbarLogin");
     var link_NavbarSignup = document.getElementById("NavbarSignup");
+    var link_NavbarManageUsers = document.getElementById("NavbarManageUsers");
 
     //user
     var link_NavbarLogout = document.getElementById("NavbarLogout");
@@ -51,6 +53,11 @@ function initNavbar(page){
         input_NavbarMoreOptions.style.display = "none";
 
         link_NavbarLogin.style.display = "";
+    } else if (page == Manage_Users_Page) {
+        link_NavbarManageUsers.className = "current";
+
+        input_NavbarMoreOptions.style.display = "none";
+
     }
     else{
         //None

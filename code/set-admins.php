@@ -24,17 +24,24 @@
 
     $emails = $conn->getAllUserEmails();
 
-    $hasAdmin = false;
     $sql = "UPDATE USER SET type = 'admin' WHERE ";
+    $bindParamArg = "";
+    $adminUsers = array();
     foreach ($emails as $email) {
-        if ($_GET[str_replace('.', '_', $email)] === "on") {
+        if (isset($_GET[str_replace('.', '_', $email)]) && $_GET[str_replace('.', '_', $email)] === "on") {
             $hasAdmin = true;
-            $sql = $sql . "email = '" . $email . "' ";
+            $sql = $sql . "email = ? OR ";
+            $bindParamArg = $bindParamArg . 's';
+            $adminUsers[] = $email;
         }
     }
 
-    if ($hasAdmin) {
+    $sql = substr($sql, 0, strlen($sql) - 4);
+    $sql = $sql . ';';
+
+    if (count($adminUsers) > 0) {
         $stmt = $conn->db->prepareStatement($sql);
+        $stmt->bind_param($bindParamArg, ...$adminUsers);
         if (!$stmt->execute())
             die('Fatal error!');
     }

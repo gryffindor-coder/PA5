@@ -14,7 +14,7 @@
 
     unset($_SESSION["Email"]);
     unset($_SESSION["UserName"]);
-    unset($_SESSION["LogedIN"]);
+    $_SESSION['LoggedIN'] = false;
 
     unset($_COOKIE["Email"]);
     unset($_COOKIE["UserName"]);

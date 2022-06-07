@@ -28,8 +28,8 @@
         return (preg_match($validPasswordExp, $password) === 1);
     }
 
-    $email = $_GET["email"];
-    $password = $_GET["password"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
 
     $emb = isValidEmail($email);
     $pwb = isValidPassword($password);
@@ -65,6 +65,7 @@
         echo 'Welcome ';
         echo $_SESSION['UserName'];
         echo '<script type="text/javascript">initNavbar("");</script>';
+        echo '<script type="text/javascript">setTimeout(() => { document.location = "index.php"; }, 4000)</script>';
     }
     function loginFail($error){
         echo '<br><br><br><h1>Login Failed:</h1>';
