@@ -7,10 +7,17 @@
     <title>Statistics</title>
 </head>
 <body>
+
     <?php include_once "header.php"; ?>
 
-    <h2 style="left:47%">Statistics for Golf Events</h2>
+    <h2 style="left:47%">Statistics for Golf</h2>
     <h3>Events' Popularity</h3>
+    <h3>Courses by country</h3>
+    <?php 
+        $result = $conn->query("SELECT * FROM golf_events GROUP BY ");
+        while ($row = $result->fetch_assoc())
+            echo "$row . <br>";
+    ?>
     <div style="float:left">
     </div>
 
